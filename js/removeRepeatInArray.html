@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Remove Repeat In Array</title>
+	</head>
+
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			var arr = [1, 3, 5, 3, 6, 9, 1, 2, 2];
+			var arr = ['a', 'b', 'a', 'c', 'c', 'ab', 'bc'];
+			function removeRepeat ( arr ) {
+				var i, tmpArr = [];
+				for ( i in arr ) {
+					if ( tmpArr.join(',').indexOf( arr[i] ) == -1 ) {
+						tmpArr.push( arr[i] );
+					}
+				}
+				return tmpArr;
+			}
+			
+			var r = removeRepeat( arr );
+			console.log( r );
+			
+			/*var arr = [1, 3, 5, 3, 6, 9, 1, 2, 2];
+			var arr = ['a', 'b', 'a', 'c', 'c'];
+			function removeRepeat ( arr ) {
+				var i, tmpArr = [];
+				for ( i in arr ) {
+					if ( tmpArr.indexOf( arr[i] ) == -1 ) {
+						tmpArr.push( arr[i] );
+					}
+				}
+				return tmpArr;
+			}
+			
+			var r = removeRepeat( arr );
+			console.log( r );*/
+		</script>
+	</body>
+</html>
