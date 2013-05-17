@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SlidesJS Basic Code Example</title>
+  <meta name="viewport" content="width=device-width">
+  <style>
+    #slides {
+      display: none
+    }
+
+    .container {
+      margin: 0 auto
+    }
+
+    .slidesjs-pagination .active {
+      color:red;
+    }
+
+    @media (max-width: 767px) {
+      body {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      .container {
+        width: auto
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: auto
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 979px) {
+      .container {
+        width: 724px
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .container {
+        width: 1170px
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="slides">
+      <img src="img/example-slide-1.jpg" alt="Photo by: Missy S Link: http://www.flickr.com/photos/listenmissy/5087404401/">
+      <img src="img/example-slide-2.jpg" alt="Photo by: Daniel Parks Link: http://www.flickr.com/photos/parksdh/5227623068/">
+      <img src="img/example-slide-3.jpg" alt="Photo by: Mike Ranweiler Link: http://www.flickr.com/photos/27874907@N04/4833059991/">
+      <img src="img/example-slide-4.jpg" alt="Photo by: Stuart SeegerLink: http://www.flickr.com/photos/stuseeger/97577796/">
+    </div>
+  </div>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="js/jquery.slides.min.js"></script>
+  <script>
+    $(function() {
+      $('#slides').slidesjs({
+        width: 940,
+        height: 528,
+        navigation: {
+          effect: "fade"
+        },
+        pagination: {
+          effect: "fade"
+        },
+        effect: {
+          fade: {
+            speed: 400
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
