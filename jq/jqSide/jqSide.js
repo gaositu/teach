@@ -233,5 +233,83 @@ $.cookie = function (key, value, options) {
  */
 (function(c,f){if(c.localStorage)return;var g={file:c.location.hostname||"localStorage",o:null,init:function(){if(!this.o){var a,doc=document,box;try{a=new ActiveXObject('htmlfile');a.open();a.write('<s'+'cript>document.w=window;</s'+'cript><iframe src="/favicon.ico"></frame>');a.close();doc=a.w.frames[0].document}catch(e){doc=document}try{box=doc.body||doc.documentElement||doc,o=doc.createElement('input');o.type="hidden";o.addBehavior("#default#userData");box.appendChild(o);var d=new Date();d.setDate(d.getDate()+365);o.expires=d.toUTCString();o.load(this.file);this.o=o;c.localStorage.length=this.key()}catch(e){return false}};return true},item:function(a,b){if(!this.init())return;if(b!==f){b===null?this.o.removeAttribute(a):this.o.setAttribute(a,b+"");this.o.save(this.file)}else{var v=this.o.getAttribute(a);return v===null?f:v}},clear:function(){if(!this.init())return;var a=this.key(-1);for(var b in a)this.o.removeAttribute(b);this.o.save(this.file)},key:function(a){if(!this.init())return-1;var b=this.o.XMLDocument.documentElement.attributes,n=b.length,i=0,t,obj={};if(a===f)return n;if(a===-1){for(;t=b[i];i++)obj[t.name]=this.item(t.name);return obj}return a<n&&a>=0?b[a].name:f}};c.localStorage={setItem:function(a,b){g.item(a,b);this.length=g.key()},getItem:function(a){return g.item(a)},removeItem:function(a){g.item(a,null);this.length=g.key()},clear:function(){g.clear();this.length=g.key()},length:-1,key:function(i){return g.key(i)},isVirtualObject:true};g.init()})(window);(function(c,d,e){var f={set:function(a,b){if(this.get(a)!==e)this.remove(a);d.setItem(a,b)},get:function(a){var v=d.getItem(a);return v===null?e:v},remove:function(a){d.removeItem(a)},clear:function(){d.clear()},each:function(a){var b=this.obj(),fn=a||function(){},key;for(key in b)if(fn.call(this,key,this.get(key))===false)break},obj:function(){var a={},i=0,n,key;if(d.isVirtualObject){a=d.key(-1)}else{n=d.length;for(;i<n;i++){key=d.key(i);a[key]=this.get(key)}}return a}},j=c.jQuery;c.LS=c.LS||f;if(j)j.LS=j.LS||f})(window,window.localStorage);
 
+/*
+ * jQuery简单扩展[小工具集]
+ */
+$.extend({
+	//从URL中捕获参数
+	getUrlPara: function(paraName) {
+		var str = window.location.search.replace(/^\?/g, ""), dstr = str;
+		//先解码，解码失败则替换&链接符号，保证内容能够解析
+		//解码失败的情况极其少见，以后确认算法后可以优化代码
+		try{
+			dstr = decodeURIComponent(str);
+		}catch(e){
+			dstr = str.replace(/"%26"/g, "&");
+		}
+		return $.getParaFromString(dstr, paraName);
+	},
+	//从HASH中捕获参数
+	getHashPara: function(paraName) {return $.getParaFromString(window.location.hash.replace(/^#*/, ""), paraName); },
+	//从字符串中捕获参数
+	getParaFromString: function(str, paraName) {
+		var reg = new RegExp("(?:^|&)" + $.safeRegStr(paraName) + "=([^&$]*)", "gi");
+		return reg.test(str) ? decodeURIComponent(RegExp.$1) : "";
+	},
+	//替换安全的html字符串
+	safeHTML : function( str ){
+		return String(str)
+			.replace(/&/g, "&amp;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/"/g, "&quot;")
+			.replace(/'/g, "&#39;");
+	},
+	//替换安全的正则表达式字符串
+	safeRegStr : function( str ){return String(str).replace(/([\\\(\)\{\}\[\]\^\$\+\-\*\?\|])/g, "\\$1"); },
+	//false fn
+	falseFn : function(){return false},
+	//阻止冒泡函数
+	stopProp : function(e){e.stopPropagation()},
+	//阻止默认行为
+	preventDft : function(e){e.preventDefault()},
+	//判断是否是左键点击，e为jquery事件对象
+	isLeftClick : function( e ){
+		//IE 6 7 8		左键 1 右键 2 中键 4  若是组合键，则位或，如按下左键后不放点击右键，button为3
+		//IE9以及其他		左键 0 中键 1 右键 2  组合键没有特殊值
+		return e.button == ("\v" == "v" ? 1 : 0);
+	},
+	//代理选择一个文件路径
+	fileAgent : function(){
+		var agent = $("<input type='file'/>").hide().appendTo(document.body), file;
+		agent.click();
+		file = agent.val()||null;
+		agent.remove();
+		return file;
+	},
+	//格式化日期
+	formatTime : function( timeNum, tmpl ){
+		//转化为数字
+		var num = /^\d+$/gi.test(timeNum+"") ? +timeNum : Date.parse(timeNum);
+		//如果数据不能转化为日期，则直接返回不处理
+		if( isNaN(num) )
+			return timeNum;
+		//转化日期
+		var D = new Date(num), zz=function(a){ return ("0"+a).slice(-2);},
+			yyyy = D.getFullYear(),
+			M = D.getMonth()+1, MM = zz(M),
+			d = D.getDate(), dd = zz(d),
+			h = D.getHours(), hh = zz(h),
+			m = D.getMinutes(), mm = zz(m),
+			s = D.getSeconds(), ss = zz(s);
+		return (tmpl||"yyyy-MM-dd hh:mm:ss")
+				.replace(/yyyy/g, yyyy)
+				.replace(/MM/g, MM).replace(/M/g, M)
+				.replace(/dd/g, dd).replace(/d/g, d)
+				.replace(/hh/g, hh).replace(/h/g, h)
+				.replace(/mm/g, mm).replace(/m/g, m)
+				.replace(/ss/g, ss).replace(/s/g, s);
+	}
+});
 
 })( window, jQuery );
