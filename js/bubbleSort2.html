@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<script type="text/javascript">
+			//需要排序的数组
+			var list = Array(23, 45, 18, 37, 92, 13, 24);
+			document.write('数组排序前为：' + list );
+			document.write( '<br />' );
+			//数组长度
+			var n = list.length;
+			//交换顺序的临时变量
+			var tmp;//
+			//交换标志
+			var exchange;
+			//最多做n-1趟排序
+			for (var time = 0; time < n - 1; time++) {
+			    exchange = false;
+			    for ( var i=n-1; i>time; i-- ) {
+			    	if (list[i] <list[i - 1]) {
+			            exchange = true;
+			            tmp = list[i - 1];
+			            list[i - 1] = list[i];
+			            list[i] = tmp;
+			        }
+			    }
+			    //若本趟排序未发生交换，提前终止算法
+			    if (!exchange) {
+			        break;
+			    }
+			}
+			document.write('数组排序后为：' + list + ',n共排了' + time + '趟');
+
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>
