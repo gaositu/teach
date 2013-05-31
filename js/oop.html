@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>oop</title>
+		<link rel="shortcut icon" href="favicon.ico" />
+		<script type="text/javascript" charset="utf-8">
+			/*
+			var Cat = {
+							name: '',
+							color: '',
+							run: function () {
+								console.log( 'the cat is running' );
+							}
+						}
+						
+						console.log( Cat );*/
+			/*
+			var cat1 = {};
+						cat1.name = "澶ф瘺";
+						cat1.color = "榛勮壊";
+						var cat2 = {};
+						cat2.name = "浜屾瘺";
+						cat2.color = "榛戣壊";*/
+			
+			/*function Cat ( n, c ) {
+				return { name: n,color: c }
+				*var tmpCat = {};
+				tmpCat.name = n;
+				tmpCat.color = c;
+				return tmpCat;*
+			}
+			
+			var dm = Cat( '大毛', '黄色');
+			var em = Cat( '二毛', '黑色');*/
+			
+			/*function Cat ( n, c ) {
+				this.name = n;
+				this.color = c;
+				this.run = function () {
+					alert( 'this cat is running...' );
+					return 'acbd';
+				},
+				this.add = function ( a, b ) {
+					return a + b;
+				}
+			}
+			
+			var dm = new Cat( '大毛', '黄色' );
+			var em = new Cat( '二毛', '黑色' );
+			var obj = {};*/
+			
+			/*function Cat ( n, c ) {
+				this.name = n;
+				this.color = c;
+			}
+			
+			Cat.prototype.type = 'bsm';
+			Cat.prototype.run = function () {
+				alert( 'this guy is running...');
+			}
+			
+			var dm = new Cat( '大毛', '黄色' );
+			dm.eat = function ( ) {
+				alert( 'this guy is eating...');
+			}
+			var em = new Cat( '二毛', '黑色' );
+			
+			for ( var p in dm ) {
+				console.log( p + '--' + dm[p] );
+			}*/
+			
+			/*var counter = 0;
+			var timmer;
+			function demo () {
+				counter ++;
+				console.log( 'counter is: ' + counter );
+				if ( counter > 9 ) {
+					clearInterval( timmer );
+				}
+			}
+			
+			timmer = setInterval( demo, 1000 * 1 );*/
+			
+			var counter = 0;
+			var timmer;
+			function Demo() {
+				/*this.counter = 0;
+				this.timmer = null;*/
+				/*this.doRun = function () {
+					this.counter ++;
+					console.log( 'counter is: ' + this.counter );
+					if ( this.counter > 9 ) {
+						clearInterval( this.timmer );
+					}
+				}*/
+				this.doDemo = function () {
+					timmer = setInterval( function (){
+						counter ++;
+						console.log( 'counter is: ' + counter );
+						if ( counter > 9 ) {
+							clearInterval( timmer );
+						}
+					}, 1000 * 1 );
+				}
+			}
+			
+			//var d = new Demo();
+			//d.doDemo();
+			
+			/*Demo.prototype.doRun = function () {
+				this.counter ++;
+				console.log( 'counter is: ' + this.counter );
+				if ( this.counter > 9 ) {
+					clearInterval( this.timmer );
+				}
+			}
+			
+			Demo.prototype.doDemo = function () {
+				this.timmer = setInterval( this.doRun, 1000 * 1 );
+			}
+			
+			var d = new Demo();
+			d.doDemo();*/
+			
+			var json = [{
+				name: 'aaa',
+				age: 18
+			},{
+				name: 'bbb',
+				age: 16
+			},{
+				name: 'ccc',
+				age: 17
+			},{
+				name: 'ddd',
+				age: 20
+			},{
+				name: 'eee',
+				age: 19
+			}];
+			
+			/*var len = json.length, i=0;
+			var tmpAge = 0, tmpObj;
+			for ( ; i<len; i++ ) {
+				 var currAge = json[i]['age'];
+				 if ( currAge > tmpAge ) {
+				 	tmpAge = currAge;
+				 	tmpObj = json[i];
+				 }
+			}
+			
+			console.log( tmpObj );*/
+			
+			function getObjMaxAge ( tmpJson ) {
+				var len = tmpJson.length, i=0;
+				var tmpAge = 0, tmpObj;
+				for ( ; i<len; i++ ) {
+					 var currAge = tmpJson[i]['age'];
+					 if ( currAge > tmpAge ) {
+					 	tmpAge = currAge;
+					 	tmpObj = tmpJson[i];
+					 }
+				}
+				return tmpObj;
+			}
+			
+			var maxObj = getObjMaxAge( json );
+			console.log( maxObj );
+		</script>
+	</head>
+
+	<body>
+		<div id="abc">ABC</div>
+		
+		<script>
+		/*var abc;
+		try {
+			alert( 1 )
+			abc = document.getElementById( 'abc' ).innerHTML;
+			alert( 3 )
+		} catch ( e ) {
+			alert( 2 )
+			abc = document.getElementById( 'ab' ).innerHTML;
+		}
+		alert( abc );*/
+			/*
+			function $ ( id ) {
+							if ( id.indexOf( '#' ) == 0 ) {
+								return document.getElementById( id.substring( id.indexOf("#") + 1 ) );
+							} else if ( id.indexOf( '.' ) == 0 ) {
+								alert( 'class' )
+							} 
+							
+						}
+						var ddd = $( '#abc' );
+						console.log( ddd );*/
+			
+		</script>
+	</body>
+</html>
